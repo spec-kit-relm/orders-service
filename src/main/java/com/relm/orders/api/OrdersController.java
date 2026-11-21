@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * HTTP adapter for orders-api 1.2.0 (in-memory store for the baseline).
- * RELM-1 (orders-api 1.3.0) adds reservationId + inventory commit — see specs/001-stock-reservation.
+ * RELM-2 (orders-api 1.3.1) adds reservationId + inventory commit — see specs/002-stock-reservation.
  */
 @RestController
 @RequestMapping("/v1/orders")

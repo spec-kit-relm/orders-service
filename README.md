@@ -10,8 +10,8 @@ Owner: `@spec-kit-relm/backend` · Spec Kit project, kind **backend** (presets `
 
 | Contract | Role | Version | Notes |
 |----------|------|---------|-------|
-| [`contracts/orders-api.yaml`](contracts/orders-api.yaml) | provides | 1.3.0 | 1.3.0 adds optional `reservationId` and `reservation-expired` (RELM-1) |
-| [`contracts/vendor/inventory-api.yaml`](contracts/vendor/inventory-api.yaml) | consumes (read-only) | 1.1.0 | provenance in [`contracts/vendor/README.md`](contracts/vendor/README.md) |
+| [`contracts/orders-api.yaml`](contracts/orders-api.yaml) | provides | 1.3.1 | 1.3.0 adds optional `reservationId` and `reservation-expired` (RELM-2) |
+| [`contracts/vendor/inventory-api.yaml`](contracts/vendor/inventory-api.yaml) | consumes (read-only) | 1.1.1 | provenance in [`contracts/vendor/README.md`](contracts/vendor/README.md) |
 
 ## Run it
 
@@ -20,7 +20,7 @@ mvn -B -q test           # unit, MockMvc, ArchUnit
 mvn spring-boot:run      # :8082
 ```
 
-Today's code implements orders-api **1.2.0** with an in-memory store. RELM-1 adds reservations —
+Today's code implements orders-api **1.2.0** with an in-memory store. RELM-2 adds reservations —
 tasks ready, implementation not started.
 
 ## How we work in this repository — in order
@@ -41,7 +41,7 @@ tasks ready, implementation not started.
 
 | Feature | Directory | Role | State |
 |---------|-----------|------|-------|
-| RELM-1 Stock reservation at checkout | [`specs/001-stock-reservation/`](specs/001-stock-reservation/) | provider + consumer (2nd in rollout) | Approved · contracts locked · [tasks](specs/001-stock-reservation/tasks.md) ready — **next: `/speckit.implement Phase 1`** |
+| RELM-2 Stock reservation at checkout | [`specs/002-stock-reservation/`](specs/002-stock-reservation/) | provider + consumer (2nd in rollout) | Approved · contracts locked · [tasks](specs/002-stock-reservation/tasks.md) ready — **next: `/speckit.implement Phase 1`** |
 
 ## Gates on every PR
 
