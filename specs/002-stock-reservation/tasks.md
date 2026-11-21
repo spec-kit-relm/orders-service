@@ -1,12 +1,12 @@
 ---
-description: "Task list for RELM-1 stock reservation — orders-service slice"
+description: "Task list for RELM-2 stock reservation — orders-service slice"
 ---
 
 # Tasks: Stock reservation at checkout — orders slice
 
-**Input**: Design documents from `/specs/001-stock-reservation/`
+**Input**: Design documents from `/specs/002-stock-reservation/`
 
-**Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts (orders-api 1.3.0 provided, inventory-api 1.1.0 consumed — both locked)
+**Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts (orders-api 1.3.1 provided, inventory-api 1.1.1 consumed — both locked)
 
 **Tests**: Mandatory at Relm (ORG-4). Test tasks precede implementation tasks in every story phase.
 
@@ -39,10 +39,10 @@ description: "Task list for RELM-1 stock reservation — orders-service slice"
 
 ### Tests for User Story 1 ⚠️
 
-- [ ] T010 [P] [US1] Use-case test `RELM-1/US2/AS1 order with active hold commits then confirms` in `PlaceOrderUseCaseTest`
-- [ ] T011 [P] [US1] Use-case test `ORD/RELM-1/US1/AS2 order without hold behaves as 1.2.0`
+- [ ] T010 [P] [US1] Use-case test `RELM-2/US2/AS1 order with active hold commits then confirms` in `PlaceOrderUseCaseTest`
+- [ ] T011 [P] [US1] Use-case test `ORD/RELM-2/US1/AS2 order without hold behaves as 1.2.0`
 - [ ] T012 [P] [US1] Consumer contract test `InventoryClientContractTest` — commit 200 against WireMock stub validated by the vendored contract
-- [ ] T013 [US1] Provider verification: `POST /v1/orders` with `reservationId` returns 201 matching orders-api 1.3.0
+- [ ] T013 [US1] Provider verification: `POST /v1/orders` with `reservationId` returns 201 matching orders-api 1.3.1
 
 ### Implementation for User Story 1
 
@@ -56,8 +56,8 @@ description: "Task list for RELM-1 stock reservation — orders-service slice"
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T017 [P] [US2] Integration test `RELM-1/US2/AS2 double submit yields one order` (sequential and 2 concurrent requests, Testcontainers)
-- [ ] T018 [P] [US2] Integration test `ORD/RELM-1/US2/AS2 retry after inventory 503 creates one order and reuses orderId`
+- [ ] T017 [P] [US2] Integration test `RELM-2/US2/AS2 double submit yields one order` (sequential and 2 concurrent requests, Testcontainers)
+- [ ] T018 [P] [US2] Integration test `ORD/RELM-2/US2/AS2 retry after inventory 503 creates one order and reuses orderId`
 - [ ] T019 [P] [US2] Consumer contract test: inventory commit replay returns same body; timeout path
 
 ### Implementation for User Story 2
@@ -71,9 +71,9 @@ description: "Task list for RELM-1 stock reservation — orders-service slice"
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T022 [P] [US3] Use-case test `RELM-1/US2/AS3 expired hold returns reservation-expired and stores no order`
+- [ ] T022 [P] [US3] Use-case test `RELM-2/US2/AS3 expired hold returns reservation-expired and stores no order`
 - [ ] T023 [P] [US3] Consumer contract tests: inventory 409 `reservation-expired`, 404, 503 after retries
-- [ ] T024 [US3] Provider verification: 409 and 503 problem documents match orders-api 1.3.0
+- [ ] T024 [US3] Provider verification: 409 and 503 problem documents match orders-api 1.3.1
 
 ### Implementation for User Story 3
 
@@ -83,7 +83,7 @@ description: "Task list for RELM-1 stock reservation — orders-service slice"
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T026 [P] Dashboard "Orders — RELM-1" + alerts in `ops/dashboards/` (ORG-6)
+- [ ] T026 [P] Dashboard "Orders — RELM-2" + alerts in `ops/dashboards/` (ORG-6)
 - [ ] T027 [P] Reconciliation job query: orders with `reservation_id` vs. inventory committed events (SC-001)
 - [ ] T028 Update `AGENTS.md` Layout and `README.md`
 
@@ -92,7 +92,7 @@ description: "Task list for RELM-1 stock reservation — orders-service slice"
 ## Phase R: Relm Verification & Handoff *(mandatory, always the last phase — ORG-3, ORG-4, ORG-9, PRD-6)*
 
 - [ ] TR01 Provider verification and consumer contract tests pass against the locked contract versions, including negative cases
-- [ ] TR02 Every acceptance scenario `RELM-1/US<k>/AS<m>` in scope has an automated test whose title starts with that ID
+- [ ] TR02 Every acceptance scenario `RELM-2/US<k>/AS<m>` in scope has an automated test whose title starts with that ID
 - [ ] TR03 Feature flag defaults to off; rollback steps from plan.md verified in a non-production environment
 - [ ] TR04 Run `/speckit.converge`; resolve every appended convergence task until it reports **Converged**
 - [ ] TR05 If shipped behavior or contract versions differ from the central spec, open a PR in `product-specs` updating `spec.md` / `contracts.lock.md`

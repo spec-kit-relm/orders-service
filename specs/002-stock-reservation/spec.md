@@ -1,12 +1,12 @@
 # Feature Specification: Stock reservation at checkout — orders slice
 
-**Feature Branch**: `001-stock-reservation`
+**Feature Branch**: `002-stock-reservation`
 
 **Created**: 2026-11-19
 
 **Status**: Approved
 
-**Input**: User description: "RELM-1 stock-reservation: orders-service slice from the handoff brief — when an order is placed with a hold, convert the hold as part of placing the order; never create an order whose hold expired; repeated submissions create exactly one order."
+**Input**: User description: "RELM-2 stock-reservation: orders-service slice from the handoff brief — when an order is placed with a hold, convert the hold as part of placing the order; never create an order whose hold expired; repeated submissions create exactly one order."
 
 ## Clarifications
 
@@ -29,7 +29,7 @@ converted.
 
 **Acceptance Scenarios**:
 
-1. **Given** an active hold for the cart, **When** the order is placed with it, **Then** the hold is converted for this order and the order is confirmed. *[RELM-1/US2/AS1]*
+1. **Given** an active hold for the cart, **When** the order is placed with it, **Then** the hold is converted for this order and the order is confirmed. *[RELM-2/US2/AS1]*
 2. **Given** no hold in the request, **When** the order is placed, **Then** it behaves exactly as before this feature.
 
 ---
@@ -44,7 +44,7 @@ The same order submitted more than once results in a single order.
 
 **Acceptance Scenarios**:
 
-1. **Given** an order request with a hold, **When** it is submitted twice within seconds, **Then** exactly one order exists and both responses carry the same order. *[RELM-1/US2/AS2]*
+1. **Given** an order request with a hold, **When** it is submitted twice within seconds, **Then** exactly one order exists and both responses carry the same order. *[RELM-2/US2/AS2]*
 2. **Given** a first attempt that failed because inventory was temporarily unavailable, **When** it is retried, **Then** at most one order is created and the hold is converted at most once.
 
 ---
@@ -59,7 +59,7 @@ Orders whose hold expired or was replaced are rejected with a specific outcome.
 
 **Acceptance Scenarios**:
 
-1. **Given** an expired hold, **When** the order is placed, **Then** no order is created and the response says the hold expired. *[RELM-1/US2/AS3]*
+1. **Given** an expired hold, **When** the order is placed, **Then** no order is created and the response says the hold expired. *[RELM-2/US2/AS3]*
 
 ---
 
@@ -93,22 +93,22 @@ Orders whose hold expired or was replaced are rejected with a specific outcome.
 
 ## Assumptions
 
-- inventory-service is deployed with inventory-api 1.1.0 before this slice (rollout step 1).
+- inventory-service is deployed with inventory-api 1.1.1 before this slice (rollout step 1).
 - Payment authorization is out of scope for this slice (unchanged).
 
 ---
 
 ## Relm Traceability *(mandatory — ORG-1, PRD-1, QA-2)*
 
-**Feature ID**: RELM-1
-**Central spec**: [product-specs/specs/001-stock-reservation/spec.md](https://github.com/spec-kit-relm/product-specs/blob/main/specs/001-stock-reservation/spec.md)
+**Feature ID**: RELM-2
+**Central spec**: [product-specs/specs/002-stock-reservation/spec.md](https://github.com/spec-kit-relm/product-specs/blob/main/specs/002-stock-reservation/spec.md)
 **Repository role**: provider+consumer
-**Contracts provided**: orders-api@1.3.0
-**Contracts consumed**: inventory-api@1.1.0 (pinned in `contracts/vendor/`)
-**Product stories covered**: RELM-1 US2 (AS1, AS2, AS3)
+**Contracts provided**: orders-api@1.3.1
+**Contracts consumed**: inventory-api@1.1.1 (pinned in `contracts/vendor/`)
+**Product stories covered**: RELM-2 US2 (AS1, AS2, AS3)
 
 **Status lifecycle**: Draft → In Review → Approved → Implemented → Released
 
 ### Scenario IDs
 Central scenario IDs in brackets. Repository-only scenarios (US1 AS2, US2 AS2) use
-`ORD/RELM-1/US<k>/AS<m>` in test titles.
+`ORD/RELM-2/US<k>/AS<m>` in test titles.

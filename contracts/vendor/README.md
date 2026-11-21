@@ -6,13 +6,13 @@ file here changes without this README being updated.
 
 | File | Provider | Version | Source tag | Source commit | Vendored on | Locked by |
 |------|----------|---------|------------|---------------|-------------|-----------|
-| `inventory-api.yaml` | spec-kit-relm/inventory-service | 1.1.0 | `inventory-api-v1.1.0` | (tag commit) | 2026-11-19 | RELM-1 `contracts.lock.md` |
+| `inventory-api.yaml` | spec-kit-relm/inventory-service | 1.1.1 | `inventory-api-v1.1.1` | (tag commit) | 2026-11-22 | RELM-2 `contracts.lock.md` |
 
 ## Sync procedure
 
 ```bash
-gh api "repos/spec-kit-relm/inventory-service/contents/contracts/inventory-api.yaml?ref=inventory-api-v1.1.0" \
+gh api "repos/spec-kit-relm/inventory-service/contents/contracts/inventory-api.yaml?ref=inventory-api-v1.1.1" \
   -H "Accept: application/vnd.github.raw" > contracts/vendor/inventory-api.yaml
 # update the table above (version, tag, commit, date), then regenerate the client:
-mvn -q generate-sources -Pinventory-client   # profile added by RELM-1 T002
+mvn -q generate-sources -Pinventory-client   # profile added by RELM-2 T002
 ```

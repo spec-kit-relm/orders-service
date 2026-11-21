@@ -1,8 +1,8 @@
 # Implementation Plan: Stock reservation at checkout — orders slice
 
-**Branch**: `001-stock-reservation` | **Date**: 2026-11-20 | **Spec**: [spec.md](./spec.md)
+**Branch**: `002-stock-reservation` | **Date**: 2026-11-20 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `/specs/001-stock-reservation/spec.md`
+**Input**: Feature specification from `/specs/002-stock-reservation/spec.md`
 
 ## Summary
 
@@ -39,8 +39,8 @@ moves from memory to PostgreSQL.
 
 | Rule | How this plan complies | Status |
 |------|------------------------|--------|
-| ORG-1/ORG-2 | RELM-1 local spec approved, technology-free | ✅ |
-| ORG-3 Contract-first | orders-api 1.3.0 (additive) promoted + locked; inventory-api 1.1.0 vendored with provenance | ✅ |
+| ORG-1/ORG-2 | RELM-2 local spec approved, technology-free | ✅ |
+| ORG-3 Contract-first | orders-api 1.3.1 (additive) promoted + locked; inventory-api 1.1.1 vendored with provenance | ✅ |
 | ORG-4 Tests prove the spec | Scenario-ID tests; consumer tests vs. inventory stubs; provider verification of orders-api | ✅ |
 | ORG-5 | `orders:place` scope; no new personal data | ✅ |
 | ORG-6 | `orders_placed_total{reservation}`, `inventory_commit_duration_seconds`, RED | ✅ |
@@ -55,9 +55,9 @@ moves from memory to PostgreSQL.
 ### Documentation (this feature)
 
 ```text
-specs/001-stock-reservation/
+specs/002-stock-reservation/
 ├── plan.md  research.md  data-model.md  quickstart.md  tasks.md
-└── contracts/           # draft promoted to /contracts/orders-api.yaml (1.3.0)
+└── contracts/           # draft promoted to /contracts/orders-api.yaml (1.3.1)
 ```
 
 ### Source Code (repository root)
@@ -88,15 +88,15 @@ in `api` + `domain`; this feature introduces `application` and `adapters`.
 
 | Interface | Role | Contract file | Locked version | Change | Consumers / provider |
 |-----------|------|---------------|----------------|--------|----------------------|
-| Orders API | provides | `contracts/orders-api.yaml` | 1.3.0 | additive (`reservationId`, `reservation-expired`) | web-storefront, e2e-tests |
-| Inventory API — commit | consumes | `contracts/vendor/inventory-api.yaml` | 1.1.0 | — | provider: inventory-service |
+| Orders API | provides | `contracts/orders-api.yaml` | 1.3.1 | additive (`reservationId`, `reservation-expired`) | web-storefront, e2e-tests |
+| Inventory API — commit | consumes | `contracts/vendor/inventory-api.yaml` | 1.1.1 | — | provider: inventory-service |
 
 ### Observability (ORG-6)
 
 | Success criterion (from spec) | Signal (metric / log / trace) | Dashboard or alert |
 |-------------------------------|-------------------------------|--------------------|
 | SC-001 no unconverted orders | `orders_placed_total{reservation="present",commit="ok"}` vs. inventory `committed` events | reconciliation job alert (T030) |
-| SC-002 no duplicates | `idempotency_replays_total`, duplicate-order query | "Orders — RELM-1" dashboard |
+| SC-002 no duplicates | `idempotency_replays_total`, duplicate-order query | "Orders — RELM-2" dashboard |
 | SC-003 p99 ≤ 400 ms | `http_server_requests_seconds{uri="/v1/orders"}` | alert p99 > 400 ms 10 min |
 
 ### Feature flag, rollout & rollback (ORG-7)
@@ -129,7 +129,7 @@ in `api` + `domain`; this feature introduces `application` and `adapters`.
 
 | Event | Direction | AsyncAPI channel | Outbox? | Consumer de-dup key |
 |-------|-----------|------------------|---------|---------------------|
-| — | — | — | — | — (orders-service does not publish or consume events in RELM-1) |
+| — | — | — | — | — (orders-service does not publish or consume events in RELM-2) |
 
 ### Backend: performance & resilience budgets (BE-5)
 
