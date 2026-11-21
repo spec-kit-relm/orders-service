@@ -1,0 +1,5 @@
+*                    @spec-kit-relm/backend
+/contracts/          @spec-kit-relm/backend @spec-kit-relm/architecture
+/contracts/vendor/   @spec-kit-relm/backend
+/.specify/memory/    @spec-kit-relm/backend @spec-kit-relm/sdd-guild
+/AGENTS.md           @spec-kit-relm/backend @spec-kit-relm/sdd-guild
